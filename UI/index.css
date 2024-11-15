@@ -1,0 +1,16 @@
+.home-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+}
+.home-get-started{
+    text-decoration: none;
+    color: aliceblue;
+    padding: 5px 5px;
+    font-size: 15px;
+}
+
+.contact-search{
+    width: 33vw;
+}

@@ -1,0 +1,18 @@
+.home-container {
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+  display: flex;
+}
+
+.home-get-started {
+  color: #f0f8ff;
+  padding: 5px;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.contact-search {
+  width: 33vw;
+}
+/*# sourceMappingURL=index.a06289ab.css.map */

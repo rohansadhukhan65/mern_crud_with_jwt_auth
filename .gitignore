@@ -1,0 +1,10 @@
+# Ignore node_modules
+node_modules/
+
+# Ignore Parcel cache
+.parcel-cache/
+
+# Optional: Ignore other common cache files
+.DS_Store
+dist/
+*.log
