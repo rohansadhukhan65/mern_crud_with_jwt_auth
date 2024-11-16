@@ -45,6 +45,30 @@ const ContactContainer = () => {
       console.log(error);
     }
   };
+
+  const handleDelete = async (_id) => {
+    try {
+      console.clear();
+      console.log(_id);
+      let headersList = {
+        Accept: "*/*",
+        "Content-Type": "application/json",
+      };
+
+      let response = await fetch(BACK_END_DOMAIN + "/api/del-contact", {
+        method: "POST",
+        body: JSON.stringify({
+          id: _id,
+        }),
+        headers: headersList,
+      });
+
+      await readContacts();
+      if (response.ok) return alert("Contact Deleted");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     readContacts();
   }, []);
@@ -67,7 +91,7 @@ const ContactContainer = () => {
             overflowY: "auto",
           }}
         >
-          {contactlists.map((contact) => (
+          {contactlists.map((contact, key) => (
             <div key={contact.name}>
               <Divider style={{ margin: "10px 0px" }} />
               <ListItem>
@@ -82,13 +106,17 @@ const ContactContainer = () => {
                 />
                 <div>
                   <IconButton
-                    onClick={(e) => handleOptionMenuClick(e, `item-1`)}
+                    onClick={(e) =>
+                      handleOptionMenuClick(e, `item-${key}-${contact.phone}`)
+                    }
                   >
                     <MoreVertIcon />
                   </IconButton>
                   <Menu
                     anchorEl={anchorEl}
-                    open={openElem === "item-1" ? true : false}
+                    open={
+                      openElem === `item-${key}-${contact.phone}` ? true : false
+                    }
                     onClose={handleClose}
                     TransitionComponent={Fade}
                   >
@@ -111,7 +139,10 @@ const ContactContainer = () => {
                         gap: "10px",
                         fontWeight: "bolder",
                       }}
-                      onClick={handleClose}
+                      onClick={() => {
+                        handleDelete(contact._id);
+                        handleClose();
+                      }}
                     >
                       <DeleteIcon />
                       Delete

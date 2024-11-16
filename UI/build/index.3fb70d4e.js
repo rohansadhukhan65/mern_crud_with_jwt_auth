@@ -61113,6 +61113,27 @@ const ContactContainer = ()=>{
             console.log(error);
         }
     };
+    const handleDelete = async (_id)=>{
+        try {
+            console.clear();
+            console.log(_id);
+            let headersList = {
+                Accept: "*/*",
+                "Content-Type": "application/json"
+            };
+            let response = await fetch((0, _constants.BACK_END_DOMAIN) + "/api/del-contact", {
+                method: "POST",
+                body: JSON.stringify({
+                    id: _id
+                }),
+                headers: headersList
+            });
+            await readContacts();
+            if (response.ok) return alert("Contact Deleted");
+        } catch (error) {
+            console.log(error);
+        }
+    };
     (0, _react.useEffect)(()=>{
         readContacts();
     }, []);
@@ -61135,17 +61156,17 @@ const ContactContainer = ()=>{
                             children: "Add Contact"
                         }, void 0, false, {
                             fileName: "UI/src/components/ContactsCard/ContactContainer.jsx",
-                            lineNumber: 57,
+                            lineNumber: 81,
                             columnNumber: 13
                         }, undefined)
                     }, void 0, false, {
                         fileName: "UI/src/components/ContactsCard/ContactContainer.jsx",
-                        lineNumber: 56,
+                        lineNumber: 80,
                         columnNumber: 11
                     }, undefined)
                 }, void 0, false, {
                     fileName: "UI/src/components/ContactsCard/ContactContainer.jsx",
-                    lineNumber: 55,
+                    lineNumber: 79,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.TextField), {
@@ -61155,7 +61176,7 @@ const ContactContainer = ()=>{
                     label: "Search Contact"
                 }, void 0, false, {
                     fileName: "UI/src/components/ContactsCard/ContactContainer.jsx",
-                    lineNumber: 62,
+                    lineNumber: 86,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.List), {
@@ -61164,7 +61185,7 @@ const ContactContainer = ()=>{
                         scrollBehavior: "smooth",
                         overflowY: "auto"
                     },
-                    children: contactlists.map((contact)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                    children: contactlists.map((contact, key)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                             children: [
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.Divider), {
                                     style: {
@@ -61172,7 +61193,7 @@ const ContactContainer = ()=>{
                                     }
                                 }, void 0, false, {
                                     fileName: "UI/src/components/ContactsCard/ContactContainer.jsx",
-                                    lineNumber: 72,
+                                    lineNumber: 96,
                                     columnNumber: 15
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.ListItem), {
@@ -61181,17 +61202,17 @@ const ContactContainer = ()=>{
                                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.Avatar), {
                                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _imageDefault.default), {}, void 0, false, {
                                                     fileName: "UI/src/components/ContactsCard/ContactContainer.jsx",
-                                                    lineNumber: 76,
+                                                    lineNumber: 100,
                                                     columnNumber: 21
                                                 }, undefined)
                                             }, void 0, false, {
                                                 fileName: "UI/src/components/ContactsCard/ContactContainer.jsx",
-                                                lineNumber: 75,
+                                                lineNumber: 99,
                                                 columnNumber: 19
                                             }, undefined)
                                         }, void 0, false, {
                                             fileName: "UI/src/components/ContactsCard/ContactContainer.jsx",
-                                            lineNumber: 74,
+                                            lineNumber: 98,
                                             columnNumber: 17
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.ListItemText), {
@@ -61199,26 +61220,26 @@ const ContactContainer = ()=>{
                                             secondary: contact.phone
                                         }, void 0, false, {
                                             fileName: "UI/src/components/ContactsCard/ContactContainer.jsx",
-                                            lineNumber: 79,
+                                            lineNumber: 103,
                                             columnNumber: 17
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                                             children: [
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.IconButton), {
-                                                    onClick: (e)=>handleOptionMenuClick(e, `item-1`),
+                                                    onClick: (e)=>handleOptionMenuClick(e, `item-${key}-${contact.phone}`),
                                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _moreVertDefault.default), {}, void 0, false, {
                                                         fileName: "UI/src/components/ContactsCard/ContactContainer.jsx",
-                                                        lineNumber: 87,
+                                                        lineNumber: 113,
                                                         columnNumber: 21
                                                     }, undefined)
                                                 }, void 0, false, {
                                                     fileName: "UI/src/components/ContactsCard/ContactContainer.jsx",
-                                                    lineNumber: 84,
+                                                    lineNumber: 108,
                                                     columnNumber: 19
                                                 }, undefined),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.Menu), {
                                                     anchorEl: anchorEl,
-                                                    open: openElem === "item-1" ? true : false,
+                                                    open: openElem === `item-${key}-${contact.phone}` ? true : false,
                                                     onClose: handleClose,
                                                     TransitionComponent: (0, _material.Fade),
                                                     children: [
@@ -61233,14 +61254,14 @@ const ContactContainer = ()=>{
                                                             children: [
                                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _editDefault.default), {}, void 0, false, {
                                                                     fileName: "UI/src/components/ContactsCard/ContactContainer.jsx",
-                                                                    lineNumber: 104,
+                                                                    lineNumber: 132,
                                                                     columnNumber: 23
                                                                 }, undefined),
                                                                 "Edit"
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "UI/src/components/ContactsCard/ContactContainer.jsx",
-                                                            lineNumber: 95,
+                                                            lineNumber: 123,
                                                             columnNumber: 21
                                                         }, undefined),
                                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _material.MenuItem), {
@@ -61250,58 +61271,61 @@ const ContactContainer = ()=>{
                                                                 gap: "10px",
                                                                 fontWeight: "bolder"
                                                             },
-                                                            onClick: handleClose,
+                                                            onClick: ()=>{
+                                                                handleDelete(contact._id);
+                                                                handleClose();
+                                                            },
                                                             children: [
                                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _deleteDefault.default), {}, void 0, false, {
                                                                     fileName: "UI/src/components/ContactsCard/ContactContainer.jsx",
-                                                                    lineNumber: 116,
+                                                                    lineNumber: 147,
                                                                     columnNumber: 23
                                                                 }, undefined),
                                                                 "Delete"
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "UI/src/components/ContactsCard/ContactContainer.jsx",
-                                                            lineNumber: 107,
+                                                            lineNumber: 135,
                                                             columnNumber: 21
                                                         }, undefined)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "UI/src/components/ContactsCard/ContactContainer.jsx",
-                                                    lineNumber: 89,
+                                                    lineNumber: 115,
                                                     columnNumber: 19
                                                 }, undefined)
                                             ]
                                         }, void 0, true, {
                                             fileName: "UI/src/components/ContactsCard/ContactContainer.jsx",
-                                            lineNumber: 83,
+                                            lineNumber: 107,
                                             columnNumber: 17
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "UI/src/components/ContactsCard/ContactContainer.jsx",
-                                    lineNumber: 73,
+                                    lineNumber: 97,
                                     columnNumber: 15
                                 }, undefined)
                             ]
                         }, contact.name, true, {
                             fileName: "UI/src/components/ContactsCard/ContactContainer.jsx",
-                            lineNumber: 71,
+                            lineNumber: 95,
                             columnNumber: 13
                         }, undefined))
                 }, void 0, false, {
                     fileName: "UI/src/components/ContactsCard/ContactContainer.jsx",
-                    lineNumber: 63,
+                    lineNumber: 87,
                     columnNumber: 9
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "UI/src/components/ContactsCard/ContactContainer.jsx",
-            lineNumber: 54,
+            lineNumber: 78,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "UI/src/components/ContactsCard/ContactContainer.jsx",
-        lineNumber: 53,
+        lineNumber: 77,
         columnNumber: 5
     }, undefined);
 };
